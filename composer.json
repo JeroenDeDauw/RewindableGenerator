@@ -1,0 +1,59 @@
+{
+	"name": "jeroen/rewindable-generator",
+	"description": "Provides a simple adapter to make generators rewindable",
+	"keywords": [
+		"Generator",
+		"Iterator",
+		"rewind",
+		"rewindable",
+		"adapter"
+	],
+	"homepage": "https://github.com/JeroenDeDauw/RewindableGenerator",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Jeroen De Dauw",
+			"homepage": "http://jeroendedauw.com"
+		}
+	],
+	"require": {
+		"php": ">=5.5.0"
+	},
+	"require-dev": {
+		"whatthejeff/nyancat-phpunit-resultprinter": "~1.2",
+		"ockcyp/covers-validator": "~0.2.0",
+		"squizlabs/php_codesniffer": "~2.3",
+		"phpmd/phpmd": "~2.3"
+	},
+	"autoload": {
+		"classmap": [
+			"src/"
+		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
+		}
+	},
+	"scripts": {
+		"test": [
+			"composer validate --no-interaction",
+			"phpunit",
+			"vendor/bin/covers-validator"
+		],
+		"cs": [
+			"composer phpcs",
+			"composer phpmd"
+		],
+		"ci": [
+			"composer test",
+			"composer cs"
+		],
+		"phpcs": [
+			"vendor/bin/phpcs src/* tests/* --standard=phpcs.xml --extensions=php -sp"
+		],
+		"phpmd": [
+			"vendor/bin/phpmd src/,tests/ text phpmd.xml"
+		]
+	}
+}
