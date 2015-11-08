@@ -24,9 +24,9 @@ $generator->next();
 $generator->rewind(); // boom!
 ```
 
-Both result in an Exception, as proven by the tests in `tests/GeneratorTest.php`. This library provides
+Both result in an `Exception`, as proven by the tests in `tests/GeneratorTest.php`. This library provides
 a simple class that takes a generator function (the function, not its return value) and adapts it to
-a rewindable Iterator.
+a rewindable `Iterator`.
 
 ```php
 $generator = new RewindableGenerator( $myGeneratorFunction );
