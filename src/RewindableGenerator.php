@@ -17,14 +17,21 @@ class RewindableGenerator implements Iterator {
 	private $generator;
 
 	/**
+	 * @var callable|null
+	 */
+	private $onRewind;
+
+	/**
 	 * Takes a callable that should return a Generator.
 	 *
 	 * @param callable $generatorFunction
+	 * @param callable $onRewind callable that gets invoked with 0 arguments after the iterator was rewinded
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( callable $generatorFunction ) {
+	public function __construct( callable $generatorFunction, callable $onRewind = null ) {
 		$this->generatorFunction = $generatorFunction;
+		$this->onRewind = $onRewind;
 		$this->generateGenerator();
 	}
 
@@ -82,6 +89,27 @@ class RewindableGenerator implements Iterator {
 	 */
 	public function rewind() {
 		$this->generateGenerator();
+
+		if ( is_callable( $this->onRewind ) ) {
+			call_user_func( $this->onRewind );
+		}
+	}
+
+	/**
+	 * Sets a callable that gets invoked with 0 arguments after the iterator was rewinded.
+	 * If a callable has been set already, an exception will be thrown.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param callable $onRewind
+	 * @throws InvalidArgumentException
+	 */
+	public function onRewind( callable $onRewind ) {
+		if ( $this->onRewind !== null ) {
+			throw new InvalidArgumentException( 'Can only bind a onRewind handler once' );
+		}
+
+		$this->onRewind = $onRewind;
 	}
 
 }

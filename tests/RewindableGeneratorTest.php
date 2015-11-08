@@ -69,5 +69,82 @@ class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 		new RewindableGenerator( function() {} );
 	}
 
+	public function testWhenCallingItTwice_onRewindThrowsException() {
+		$iterator = new RewindableGenerator( function() {
+			yield 'foo';
+			yield 'bar';
+			yield 'baz';
+		} );
+
+
+		$iterator->onRewind( function() {} );
+		$this->setExpectedException( 'InvalidArgumentException' );
+		$iterator->onRewind( function() {} );
+	}
+
+	public function testWhenOnRewindSetInConstructor_onRewindThrowsException() {
+		$iterator = new RewindableGenerator(
+			function() {
+				yield 'foo';
+				yield 'bar';
+				yield 'baz';
+			},
+			function() {}
+		);
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+		$iterator->onRewind( function() {} );
+	}
+
+	public function testWhenCallingRewind_onRewindCallbackGetsCalled() {
+		$events = [];
+
+		$iterator = new RewindableGenerator(
+			function() {
+				yield 'foo';
+				yield 'bar';
+				yield 'baz';
+			},
+			function() use ( &$events ) {
+				$events[] = 'callback';
+			}
+		);
+
+		$events[] = 'start';
+		$iterator->rewind();
+		$events[] = 'done';
+
+		$this->assertSame(
+			[ 'start', 'callback', 'done' ],
+			$events
+		);
+	}
+
+	public function testIteratingMultipleTimes_onRewindCallbackGetsCalled() {
+		$events = [];
+
+		$iterator = new RewindableGenerator(
+			function() {
+				yield 'foo';
+				yield 'bar';
+				yield 'baz';
+			},
+			function() use ( &$events ) {
+				$events[] = 'callback';
+			}
+		);
+
+		$events[] = 'start';
+		iterator_to_array( $iterator );
+		$events[] = 'one done';
+		iterator_to_array( $iterator );
+		$events[] = 'two done';
+
+		$this->assertSame(
+			[ 'start', 'callback', 'one done', 'callback', 'two done' ],
+			$events
+		);
+	}
+
 }
 

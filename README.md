@@ -70,6 +70,10 @@ For a full CI run
 
 ## Release notes
 
+### Version 1.1.0 (2015-11-08)
+
+* Added `onRewind` function and second constructor parameter to `RewindableGenerator`
+
 ### Version 1.0.0 (2015-11-08)
 
 * Initial release - [read blog post](http://www.bn2vs.com/blog/2015/11/08/rewindable-php-generators/)
