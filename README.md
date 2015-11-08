@@ -37,7 +37,7 @@ $generator->rewind(); // works as expected
 
 ## System dependencies
 
-* PHP 5.5 or later, including PHP 7
+* PHP 5.5 or later, including PHP 7 (and probably HHVM)
 
 ## Installation
 
@@ -69,6 +69,10 @@ For a full CI run
 	composer ci
 
 ## Release notes
+
+### Version 1.1.1 (2015-11-08)
+
+* Fixed HHVM compatibility. [Maybe...](https://github.com/facebook/hhvm/issues/1871)
 
 ### Version 1.1.0 (2015-11-08)
 
