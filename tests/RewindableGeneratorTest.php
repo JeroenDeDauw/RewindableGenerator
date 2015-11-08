@@ -9,7 +9,15 @@
 class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 	public function testAdaptsEmptyGenerator() {
-		$this->assertCount( 0, new RewindableGenerator( (yield) ) );
+		$this->assertCount(
+			0,
+			// Not using simply (yield) as a several static code analysis tools break on it
+			new RewindableGenerator( function() {
+				foreach ( [] as $element ) {
+					yield $element;
+				}
+			} )
+		);
 	}
 
 	public function testAdaptsNotEmptyGenerator() {
