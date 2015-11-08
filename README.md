@@ -6,7 +6,7 @@
 [![Latest Stable Version](https://poser.pugx.org/jeroen/rewindable-generator/version.png)](https://packagist.org/packages/jeroen/rewindable-generator)
 [![Download count](https://poser.pugx.org/jeroen/rewindable-generator/d/total.png)](https://packagist.org/packages/jeroen/rewindable-generator)
 
-Provides a simple adapter to make generators rewindable.
+Provides a simple adapter to make [generators](http://php.net/manual/en/language.generators.overview.php) rewindable.
 
 Unfortunately, you cannot do this:
 
