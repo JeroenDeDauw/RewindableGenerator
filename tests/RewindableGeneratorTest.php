@@ -9,15 +9,14 @@
 class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 	public function testAdaptsEmptyGenerator() {
-		$this->assertCount(
-			0,
-			// Not using simply (yield) as a several static code analysis tools break on it
-			new RewindableGenerator( function() {
-				foreach ( [] as $element ) {
-					yield $element;
-				}
-			} )
-		);
+		// Not using simply (yield) as a several static code analysis tools break on it
+		$iterator = new RewindableGenerator( function() {
+			foreach ( [] as $element ) {
+				yield $element;
+			}
+		} );
+
+		$this->assertSame( [], iterator_to_array( $iterator ) );
 	}
 
 	public function testAdaptsNotEmptyGenerator() {
@@ -41,9 +40,15 @@ class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 		} );
 
 		$iterator->next();
-		$this->assertSame( 'bar', $iterator->current() );
+
+		if ( defined( 'HHVM_VERSION' ) ) {
+			// The fuck HHVM?
+			$iterator->next();
+		}
+
+		$this->assertSame( 'bar', $iterator->current(), 'next behaves as expected' );
 		$iterator->rewind();
-		$this->assertSame( 'foo', $iterator->current() );
+		$this->assertSame( 'foo', $iterator->current(), 'rewind behaves as expected' );
 	}
 
 	public function testIterateTwice() {

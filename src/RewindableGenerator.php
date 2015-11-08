@@ -93,6 +93,10 @@ class RewindableGenerator implements Iterator {
 		if ( is_callable( $this->onRewind ) ) {
 			call_user_func( $this->onRewind );
 		}
+
+		if ( defined( 'HHVM_VERSION' ) ) {
+			$this->generator->next();
+		}
 	}
 
 	/**

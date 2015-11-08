@@ -21,6 +21,10 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCannotUseAndRewind() {
+		if ( defined( 'HHVM_VERSION' ) ) {
+			$this->markTestSkipped( 'Yay HHVM!' );
+		}
+
 		$generator = $this->helloGenerator();
 
 		$generator->next();
