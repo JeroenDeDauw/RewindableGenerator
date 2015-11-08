@@ -38,6 +38,24 @@ class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( 'foo', $iterator->current() );
 	}
 
+	public function testIterateTwice() {
+		$iterator = new RewindableGenerator( function() {
+			yield 'foo';
+			yield 'bar';
+			yield 'baz';
+		} );
+
+		$this->assertSame(
+			[ 'foo', 'bar', 'baz' ],
+			iterator_to_array( $iterator )
+		);
+
+		$this->assertSame(
+			[ 'foo', 'bar', 'baz' ],
+			iterator_to_array( $iterator )
+		);
+	}
+
 	public function testGivenNonGeneratorFunction_constructorThrowsException() {
 		$this->setExpectedException( 'InvalidArgumentException' );
 		new RewindableGenerator( function() {} );
