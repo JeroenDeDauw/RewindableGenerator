@@ -42,14 +42,14 @@ $generator->rewind(); // works as expected
 ## Installation
 
 To add this package as a local, per-project dependency to your project, simply add a
-dependency on `rewindable-generator` to your project's `composer.json` file.
+dependency on `jeroen/rewindable-generator` to your project's `composer.json` file.
 Here is a minimal example of a `composer.json` file that just defines a dependency on
 Rewindable Generator 1.x:
 
 ```js
 {
     "require": {
-        "rewindable-generator": "~1.0"
+        "jeroen/rewindable-generator": "~1.0"
     }
 }
 ```
