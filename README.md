@@ -29,9 +29,10 @@ a simple class that takes a generator function (the function, not its return val
 a rewindable Iterator.
 
 ```php
-$generator = new RewindableGenerator( $myGeneratorFunction() );
+$generator = new RewindableGenerator( $myGeneratorFunction );
 iterator_to_array($generator);
 iterator_to_array($generator); // works as expected
+$generator->rewind(); // works as expected
 ```
 
 ## System dependencies
