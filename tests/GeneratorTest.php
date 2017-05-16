@@ -1,10 +1,14 @@
 <?php
 
+declare( strict_types = 1 );
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GeneratorTest extends \PHPUnit_Framework_TestCase {
+class GeneratorTest extends TestCase {
 
 	private function helloGenerator() {
 		yield "hello";
@@ -16,7 +20,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase {
 
 		iterator_to_array( $generator );
 
-		$this->setExpectedException( 'Exception' );
+		$this->expectException( 'Exception' );
 		iterator_to_array( $generator ); // boom!
 	}
 
@@ -29,7 +33,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase {
 
 		$generator->next();
 
-		$this->setExpectedException( 'Exception' );
+		$this->expectException( 'Exception' );
 		$generator->rewind(); // boom!
 	}
 

@@ -1,12 +1,16 @@
 <?php
 
+declare( strict_types = 1 );
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @covers RewindableGenerator
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
+class RewindableGeneratorTest extends TestCase {
 
 	public function testAdaptsEmptyGenerator() {
 		// Not using simply (yield) as a several static code analysis tools break on it
@@ -70,7 +74,7 @@ class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenNonGeneratorFunction_constructorThrowsException() {
-		$this->setExpectedException( 'InvalidArgumentException' );
+		$this->expectException( 'InvalidArgumentException' );
 		new RewindableGenerator( function() {} );
 	}
 
@@ -83,7 +87,7 @@ class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 
 
 		$iterator->onRewind( function() {} );
-		$this->setExpectedException( 'InvalidArgumentException' );
+		$this->expectException( 'InvalidArgumentException' );
 		$iterator->onRewind( function() {} );
 	}
 
@@ -97,7 +101,7 @@ class RewindableGeneratorTest extends \PHPUnit_Framework_TestCase {
 			function() {}
 		);
 
-		$this->setExpectedException( 'InvalidArgumentException' );
+		$this->expectException( 'InvalidArgumentException' );
 		$iterator->onRewind( function() {} );
 	}
 

@@ -35,10 +35,6 @@ iterator_to_array($generator); // works as expected
 $generator->rewind(); // works as expected
 ```
 
-## System dependencies
-
-* PHP 5.5 or later, including PHP 7 (and probably HHVM)
-
 ## Installation
 
 To add this package as a local, per-project dependency to your project, simply add a
@@ -46,7 +42,7 @@ dependency on `jeroen/rewindable-generator` to your project's `composer.json` fi
 Here is a minimal example of a `composer.json` file that just defines a dependency on
 Rewindable Generator 1.x:
 
-```js
+```json
 {
     "require": {
         "jeroen/rewindable-generator": "~1.0"
@@ -69,6 +65,10 @@ For a full CI run
 	composer ci
 
 ## Release notes
+
+### Version 1.2.0 (2017-05-16)
+
+* Dropped PHP 5.x support
 
 ### Version 1.1.1 (2015-11-08)
 
