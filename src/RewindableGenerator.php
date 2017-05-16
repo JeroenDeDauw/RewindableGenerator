@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 /**
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -22,15 +24,13 @@ class RewindableGenerator implements Iterator {
 	private $onRewind;
 
 	/**
-	 * Takes a callable that should return a Generator.
-	 *
-	 * @param callable $generatorFunction
+	 * @param callable $generatorConstructionFunction A callable that should return a Generator
 	 * @param callable $onRewind callable that gets invoked with 0 arguments after the iterator was rewinded
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( callable $generatorFunction, callable $onRewind = null ) {
-		$this->generatorFunction = $generatorFunction;
+	public function __construct( callable $generatorConstructionFunction, callable $onRewind = null ) {
+		$this->generatorFunction = $generatorConstructionFunction;
 		$this->onRewind = $onRewind;
 		$this->generateGenerator();
 	}
